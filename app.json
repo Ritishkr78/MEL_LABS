@@ -1,0 +1,42 @@
+{
+  "expo": {
+    "name": "base1",
+    "slug": "base1",
+    "scheme": "base1",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "permissions": [],
+      "package": "com.anonymous.base1"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "react-native-video",
+      "expo-video"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "c79d1a30-5c0f-4700-baf8-20cd602f2db2"
+      }
+    },
+    "owner": "devilrk"
+  }
+}
