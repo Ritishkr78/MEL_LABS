@@ -71,6 +71,7 @@ npx eas build:configure
 ```sh
 npx eas build --platform android
 # or
+
 npx eas build --platform ios
 ```
 
@@ -101,8 +102,10 @@ npx eas build --platform ios
 ``` sh
 npx expo prebuild --clean
 
-then:
+#then:
+
 npx expo run:android
+```
 
 ## File Structure
 
