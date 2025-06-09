@@ -10,8 +10,22 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Videos" component={VideoListScreen} />
-        <Stack.Screen name="Player" component={VideoPlayerScreen} />
+        <Stack.Screen
+          name="MelLabs Player"
+          component={VideoListScreen}
+          options={{
+            title: "MelPlayer",
+            headerStyle: {
+              backgroundColor: "#1e1e1e",
+            },
+            headerTintColor: "yellow",
+          }}
+        />
+        <Stack.Screen
+          name="Player"
+          component={VideoPlayerScreen}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

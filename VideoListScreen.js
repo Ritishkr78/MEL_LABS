@@ -55,11 +55,14 @@ export default function VideoListScreen({ navigation }) {
   );
 
   return (
-    <FlatList
-      data={videos}
-      renderItem={renderItem}
-      keyExtractor={(item) => item.id}
-    />
+    <View style={{ flex: 1, backgroundColor: "#5E5E5E" }}>
+      <FlatList
+        data={videos}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={{ paddingVertical: 10 }}
+      />
+    </View>
   );
 }
 

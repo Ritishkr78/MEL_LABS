@@ -2,6 +2,7 @@ import React from "react";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import Slider from "@react-native-community/slider";
 import formatTime from "./FormatTime";
+import ScreenshotToggle from "./ScreenshotToggle";
 
 const CustomVideoControls = React.memo(function CustomVideoControls({
   paused,
@@ -12,6 +13,8 @@ const CustomVideoControls = React.memo(function CustomVideoControls({
   duration,
   onFullscreen,
   onSettings,
+  restricted,
+  setRestricted,
   onRotate,
 }) {
   return (
@@ -49,6 +52,11 @@ const CustomVideoControls = React.memo(function CustomVideoControls({
         </Text>
       </View>
       <View style={styles.bottomRow}>
+        <ScreenshotToggle
+          restricted={restricted}
+          setRestricted={setRestricted}
+          // setScreenshotAttempts={setScreenshotAttempts}
+        />
         <TouchableOpacity onPress={onRotate} style={styles.bottomButton}>
           <Text style={styles.bottomButtonText}>🔄</Text>
         </TouchableOpacity>

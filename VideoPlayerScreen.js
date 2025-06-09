@@ -3,12 +3,13 @@ import {
   StyleSheet,
   Text,
   Modal,
-  Dimensions,
-  StatusBar,
   Button,
   TouchableWithoutFeedback,
+  StatusBar,
 } from "react-native";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo, useCallback } from "react";
+import VideoHeader from "./VideoHeader";
+import { useNavigation } from "@react-navigation/native";
 import Video from "react-native-video";
 import * as ScreenOrientation from "expo-screen-orientation";
 import * as ScreenCapture from "expo-screen-capture";
@@ -16,7 +17,6 @@ import * as ScreenCapture from "expo-screen-capture";
 import PlayerOverlay from "./PlayerOverlay";
 import SettingsScreen from "./SettingsScreen";
 import WatermarkOverlay from "./WatermarkOverlay";
-import React, { useCallback } from "react";
 
 export default function VideoPlayerScreen({ route }) {
   const { video } = route.params;
@@ -54,12 +54,14 @@ export default function VideoPlayerScreen({ route }) {
   };
 
   useEffect(() => {
+    StatusBar.setHidden(!controlsVisible, "fade");
     if (controlsVisible) {
       if (hideTimer.current) clearTimeout(hideTimer.current);
       hideTimer.current = setTimeout(() => setControlsVisible(false), 20000);
     }
     return () => {
       if (hideTimer.current) clearTimeout(hideTimer.current);
+      StatusBar.setHidden(false, "fade");
     };
   }, [controlsVisible]);
 
@@ -102,18 +104,24 @@ export default function VideoPlayerScreen({ route }) {
     };
   }, []);
 
+  const videoSource = useMemo(
+    () => (typeof video === "string" ? { uri: video } : video),
+    [video]
+  );
+
+  const navigation = useNavigation();
   const VideoArea = (
     <View
       style={fullscreen ? styles.fullscreenVideoWrapper : styles.videoWrapper}
     >
       <Video
         ref={videoRef}
-        source={typeof video === "string" ? { uri: video } : video}
+        source={videoSource}
         style={fullscreen ? styles.fullscreenVideo : styles.video}
         resizeMode="contain"
         repeat
         paused={paused}
-        controls={false}
+        // controls={false}
         onProgress={onProgress}
         onLoad={onLoad}
         onBuffer={() => {}}
@@ -122,6 +130,11 @@ export default function VideoPlayerScreen({ route }) {
       />
       <TouchableWithoutFeedback onPress={showControls}>
         <View style={StyleSheet.absoluteFill}>
+          <VideoHeader
+            visible={controlsVisible}
+            video={video}
+            onBack={() => navigation.goBack()}
+          />
           <PlayerOverlay
             restricted={restricted}
             setRestricted={setRestricted}
@@ -141,7 +154,7 @@ export default function VideoPlayerScreen({ route }) {
           <View
             style={{
               position: "absolute",
-              top: 10,
+              top: 90,
               left: 10,
               zIndex: 2000,
               alignItems: "flex-start",
@@ -242,8 +255,8 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     borderRadius: 8,
     fontSize: 16,
-    fontWeight: "bold",
-    marginTop: 15,
+    fontWeight: "ultralight",
+    marginTop: 10,
     alignSelf: "stretch", // makes it take full width of parent
     minWidth: 180, // optional: set a minimum width
     maxWidth: 300, // optional: set a maximum width

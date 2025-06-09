@@ -36,16 +36,17 @@ export default function ScreenshotToggle({ restricted, setRestricted }) {
 
   // Show message for 2 seconds when toggled
   const handleToggle = () => {
-    setRestricted((prev) => {
-      const next = !prev;
-      setMessage(next ? "Screenshot disabled" : "Screenshot enabled");
-      setTimeout(() => setMessage(""), 2000);
-      return next;
-    });
+    setRestricted((prev) => !prev);
+    const next = !restricted;
+    setMessage(next ? "Screenshot disabled" : "Screenshot enabled");
+    setTimeout(() => setMessage(""), 3000);
   };
 
   return (
-    <View style={{ alignItems: "center" }}>
+    <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+      {message ? (
+        <Text style={{ color: "#fff", fontSize: 14 }}>{message}</Text>
+      ) : null}
       <TouchableOpacity
         style={{
           backgroundColor: "rgba(34,34,34,0.85)",
@@ -62,11 +63,6 @@ export default function ScreenshotToggle({ restricted, setRestricted }) {
           color={restricted ? "#e74c3c" : "#2ecc71"}
         />
       </TouchableOpacity>
-      {message ? (
-        <Text style={{ color: "#fff", marginTop: 8, fontSize: 14 }}>
-          {message}
-        </Text>
-      ) : null}
     </View>
   );
 }

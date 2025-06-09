@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, Button } from "react-native";
 import CustomVideoControls from "./CustomVideoControls";
-import ScreenshotToggle from "./ScreenshotToggle";
 
 const PlayerOverlay = React.memo(function PlayerOverlay({
   visible,
@@ -14,13 +13,12 @@ const PlayerOverlay = React.memo(function PlayerOverlay({
   onRotate,
   onFullscreen,
   onSettings,
-  screenshotAttempts,
-  setScreenshotAttempts,
-  showWarning,
-  setShowWarning,
-  styles,
   restricted,
   setRestricted,
+  showWarning,
+  setScreenshotAttempts,
+  setShowWarning,
+  styles,
 }) {
   if (!visible) return null;
 
@@ -36,6 +34,9 @@ const PlayerOverlay = React.memo(function PlayerOverlay({
         onRotate={onRotate}
         onFullscreen={onFullscreen}
         onSettings={onSettings}
+        restricted={restricted}
+        setRestricted={setRestricted}
+        setScreenshotAttempts={setScreenshotAttempts}
       />
       <View
         style={{
@@ -46,13 +47,7 @@ const PlayerOverlay = React.memo(function PlayerOverlay({
           elevation: 10,
           alignItems: "center",
         }}
-      >
-        <ScreenshotToggle
-          restricted={restricted}
-          setRestricted={setRestricted}
-          setScreenshotAttempts={setScreenshotAttempts}
-        />
-      </View>
+      ></View>
       {showWarning && (
         <View style={styles.warningOverlay}>
           <Text style={styles.warningText}>⚠️ Screenshot is not allowed!</Text>

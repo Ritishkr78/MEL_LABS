@@ -9,6 +9,10 @@
         "buildType": "apk"
       }
     },
+
+    "development": {
+      "environment": "development"
+    },
     "preview2": {
       "android": {
         "gradleCommand": ":app:assembleRelease"
@@ -20,9 +24,8 @@
     "preview4": {
       "distribution": "internal"
     },
-    "production": {}
-  },
-  "submit": {
-    "production": {}
+    "production": {
+      "environment": "production"
+    }
   }
 }

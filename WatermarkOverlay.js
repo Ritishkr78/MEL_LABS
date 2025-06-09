@@ -26,7 +26,7 @@ const WatermarkOverlay = React.memo(function WatermarkOverlay({
           borderRadius: 8,
           opacity: 0.7,
           textAlign: "left",
-          marginTop: 5,
+          marginTop: 10,
         }}
       >
         {`User: ${username}\n${new Date(watermarkTime).toLocaleString()}`}
