@@ -13,7 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import Video from "react-native-video";
 import * as ScreenOrientation from "expo-screen-orientation";
 import * as ScreenCapture from "expo-screen-capture";
-// import ScreenshotToggle from "./ScreenshotToggle";
+import ScreenshotToggle from "./ScreenshotToggle";
 import PlayerOverlay from "./PlayerOverlay";
 import SettingsScreen from "./SettingsScreen";
 import WatermarkOverlay from "./WatermarkOverlay";
@@ -121,7 +121,7 @@ export default function VideoPlayerScreen({ route }) {
         resizeMode="contain"
         repeat
         paused={paused}
-        // controls={false}
+        controls={false}
         onProgress={onProgress}
         onLoad={onLoad}
         onBuffer={() => {}}
@@ -151,6 +151,22 @@ export default function VideoPlayerScreen({ route }) {
             onRotate={handleRotate}
             styles={styles}
           />
+          <View
+            style={{
+              position: "absolute",
+              bottom: 20,
+              left: 25,
+              zIndex: 2001,
+            }}
+            pointerEvents="box-none"
+          >
+            <ScreenshotToggle
+              restricted={restricted}
+              setRestricted={setRestricted}
+              setScreenshotAttempts={setScreenshotAttempts}
+              setShowWarning={setShowWarning}
+            />
+          </View>
           <View
             style={{
               position: "absolute",
