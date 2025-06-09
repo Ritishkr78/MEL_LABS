@@ -97,6 +97,12 @@ npx eas build --platform ios
 - Build for iOS, download the `.app` or `.ipa`, and install via Xcode or Apple Configurator.
 
 ---
+4.1 if Directly Want to run using emulator without build for testing use prebuild Method:
+``` sh
+npx expo prebuild --clean
+
+then:
+npx expo run:android
 
 ## File Structure
 
