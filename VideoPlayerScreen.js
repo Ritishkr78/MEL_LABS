@@ -32,7 +32,7 @@ export default function VideoPlayerScreen({ route }) {
   const hideTimer = useRef(null);
   const [username, setUsername] = useState("MelLabs");
   const [settingsVisible, setSettingsVisible] = useState(false);
-  const [restricted, setRestricted] = useState(false);
+  const [restricted, setRestricted] = useState(true);
   const onProgress = (data) => setCurrentTime(data.currentTime);
   const onLoad = (data) => setDuration(data.duration);
   const seek = (time) => videoRef.current?.seek(time);
@@ -55,6 +55,7 @@ export default function VideoPlayerScreen({ route }) {
 
   useEffect(() => {
     StatusBar.setHidden(!controlsVisible, "fade");
+    StatusBar.setBarStyle("light-content", true);
     if (controlsVisible) {
       if (hideTimer.current) clearTimeout(hideTimer.current);
       hideTimer.current = setTimeout(() => setControlsVisible(false), 20000);
@@ -62,6 +63,7 @@ export default function VideoPlayerScreen({ route }) {
     return () => {
       if (hideTimer.current) clearTimeout(hideTimer.current);
       StatusBar.setHidden(false, "fade");
+      StatusBar.setBarStyle("light-content", true);
     };
   }, [controlsVisible]);
 
@@ -89,25 +91,23 @@ export default function VideoPlayerScreen({ route }) {
 
   // screenshot prevention
   useEffect(() => {
-    const subscription = ScreenCapture.addScreenshotListener(() => {
-      setScreenshotAttempts((prev) => prev + 1);
-      setShowWarning(true);
-      setPaused(true);
-    });
-
-    return () => {
-      // Allow screenshots again when leaving the player
-      subscription.remove();
+    let subscription;
+    if (restricted) {
+      ScreenCapture.preventScreenCaptureAsync();
+      subscription = ScreenCapture.addScreenshotListener(() => {
+        setScreenshotAttempts((prev) => prev + 1);
+        setShowWarning(true);
+        setPaused(true);
+      });
+    } else {
       ScreenCapture.allowScreenCaptureAsync();
-
+    }
+    return () => {
+      if (subscription) subscription.remove();
+      ScreenCapture.allowScreenCaptureAsync();
       ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
     };
-  }, []);
-
-  const videoSource = useMemo(
-    () => (typeof video === "string" ? { uri: video } : video),
-    [video]
-  );
+  }, [restricted]);
 
   const navigation = useNavigation();
   const VideoArea = (
@@ -116,7 +116,7 @@ export default function VideoPlayerScreen({ route }) {
     >
       <Video
         ref={videoRef}
-        source={videoSource}
+        source={typeof video === "string" ? { uri: video } : video}
         style={fullscreen ? styles.fullscreenVideo : styles.video}
         resizeMode="contain"
         repeat
