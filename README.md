@@ -38,12 +38,17 @@ yarn install
 
 ### 3. Install Required Native Dependencies
 
+
 If using Expo, run:
 ```sh
 expo install react-native-video @react-navigation/native @react-navigation/native-stack expo-screen-orientation expo-screen-capture
 ```
 
 ---
+if Not already installed Expo,run:
+```sh
+npm install -g expo-cli
+```
 
 ## Building & Running the App
 
