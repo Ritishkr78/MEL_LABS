@@ -1,5 +1,5 @@
-# MEL_LABS
-# React Native Video Player App
+# MEL_LABS  
+## React Native Video Player App
 
 A React Native app for browsing and playing videos, featuring a custom video player with overlays, screenshot prevention, fullscreen support, and orientation lock.  
 **Note:** This project uses [EAS Build](https://docs.expo.dev/build/introduction/) and will **not** run in Expo Go.
@@ -17,58 +17,79 @@ A React Native app for browsing and playing videos, featuring a custom video pla
 
 ---
 
-## Installation
+## Getting Started
 
-1. **Clone the repository:**
-   ```sh
-   git clone <your-repo-url>
-   cd <your-repo-folder>
-   ```
+### 1. Clone the Repository
 
-2. **Install dependencies:**
-   ```sh
-   npm install
-   ```
-   or
-   ```sh
-   yarn install
-   ```
+```sh
+git clone <your-repo-url>
+cd <your-repo-folder>
+```
 
-3. **Install required native dependencies:**
-   - [react-native-video](https://github.com/react-native-video/react-native-video)
-   - [@react-navigation/native](https://reactnavigation.org/)
-   - [@react-navigation/native-stack](https://reactnavigation.org/docs/native-stack-navigator/)
-   - [expo-screen-orientation](https://docs.expo.dev/versions/latest/sdk/screen-orientation/)
-   - [expo-screen-capture](https://docs.expo.dev/versions/latest/sdk/screen-capture/)
+### 2. Install Dependencies
 
-   If using Expo, run:
-   ```sh
-   expo install react-native-video @react-navigation/native @react-navigation/native-stack expo-screen-orientation expo-screen-capture
-   ```
+```sh
+npm install
+```
+_or_
+```sh
+yarn install
+```
+
+### 3. Install Required Native Dependencies
+
+If using Expo, run:
+```sh
+expo install react-native-video @react-navigation/native @react-navigation/native-stack expo-screen-orientation expo-screen-capture
+```
 
 ---
 
-## Building & Running
+## Building & Running the App
 
 > **This project requires EAS Build. It will NOT work in Expo Go.**
 
-1. **Login to Expo:**
-   ```sh
-   npx expo login
-   ```
+### 1. Login to Expo
 
-2. **Configure EAS:**
-   ```sh
-   npx eas build:configure
-   ```
+```sh
+npx expo login
+```
 
-3. **Build your app:**
-   ```sh
-   npx eas build --platform android
-   npx eas build --platform ios
-   ```
+### 2. Configure EAS
 
-4. **Install the built app on your device or emulator.**
+```sh
+npx eas build:configure
+```
+
+### 3. Build the App
+
+```sh
+npx eas build --platform android
+# or
+npx eas build --platform ios
+```
+
+---
+
+## Running on an Emulator
+
+### Android
+
+1. **Start your Android emulator** (via Android Studio or `emulator` command).
+2. **Build the app** as above. After the build completes, download the APK from the Expo build page.
+3. **Install the APK on the emulator:**
+   - Make sure `adb` is in your PATH (comes with Android Studio).
+   - Run:
+     ```sh
+     adb install path/to/your-app.apk
+     ```
+   - Or, drag and drop the APK onto the emulator window.
+4. **Open the app** from the emulator’s app drawer.
+
+### iOS
+
+- Use Xcode Simulator (macOS only).
+- Build for iOS, download the `.app` or `.ipa`, and install via Xcode or Apple Configurator.
 
 ---
 
@@ -97,16 +118,18 @@ base1/
 
 ---
 
-## License
+## Troubleshooting
 
-MIT
+- If you encounter issues with `node_modules`, try deleting the folder and running `npm install` again.  
+  For Windows:
+  ```sh
+  rmdir /s /q node_modules
+  npm install
+  ```
+- If you see errors related to native dependencies, ensure you are using EAS Build and not Expo Go.
 
 ---
 
-**Note:**  
-If you encounter issues with `node_modules`, try deleting the folder and running `npm install` again.  
-For Windows, use:
-```sh
-rmdir /s /q node_modules
-npm install
-```
+## License
+
+MIT
